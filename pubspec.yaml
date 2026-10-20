@@ -1,0 +1,24 @@
+name: prism_blocks
+description: Prism Blocks - a colorful, 100% offline block puzzle game for Android and iOS.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+  flutter: '>=3.24.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  shared_preferences: ^2.3.2   # local key-value storage (no network)
+  audioplayers: ^6.1.0         # plays bundled audio files only
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/audio/
