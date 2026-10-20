@@ -1,0 +1,34 @@
+name: Build iOS app (.ipa)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+
+jobs:
+  ios:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: '3.47.7'
+
+      - name: Get packages
+        run: flutter pub get
+
+      - name: Build (unsigned)
+        run: flutter build ios --release --no-codesign
+
+      - name: Package .ipa
+        run: |
+          mkdir -p Payload
+          cp -R build/ios/iphoneos/Runner.app Payload/
+          zip -qr PrismBlocks.ipa Payload
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PrismBlocks-ipa
+          path: PrismBlocks.ipa
